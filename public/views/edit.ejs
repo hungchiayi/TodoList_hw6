@@ -1,0 +1,37 @@
+<% layout( 'layout' ) -%>
+
+<h1 id="page-title"><%= title %></h1>
+<div id="list">
+  <form action="/create" method="post" accept-charset="utf-8">
+    <div class="item-new">
+      <input class="input" type="text" name="title" />
+      <input class="input" type="text" name="content" />
+      <input class="item-new" type="submit" value="→" action="/create" />
+    </div>
+  </form>
+
+<% todos.forEach( function ( todo ){ %>
+  <% if( todo._id == current ){ %>
+  <div class="item-new">
+  <% }else{ %>
+  <div class="item">
+  <% } %>
+
+    <% if( todo._id == current ){ %>
+    <form class="update-form" action="/update/<%= todo._id %>" method="post" accept-charset="utf-8">
+      <input class="update-input" type="text" name="title" value="<%= todo.title %>" />
+      <input class="update-input" type="text" name="content" value="<%= todo.content %>" />
+    </form>
+    <% }else{ %>
+      <a class="update-link" href="/edit/<%= todo._id %>" title="Update this todo item"><%= todo.title %></a>
+    <a class="update-link" href="/edit/<%= todo._id %>" title="Update this todo item"><%= todo.content %></a>
+    <% } %>
+
+    <% if( todo._id == current ){ %>
+    <a class="del-btn-edit" href="/del/<%= todo._id %>" title="Delete this todo item">Delete</a>
+    <% }else{ %>
+    <a class="del-btn" href="/del/<%= todo._id %>" title="Delete this todo item">Delete</a>
+    <% } %>
+  </div>
+<% }); %>
+</div>
